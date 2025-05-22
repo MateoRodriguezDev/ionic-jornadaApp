@@ -1,0 +1,58 @@
+
+
+.container {
+
+    text-align: center;
+    background-color: peru;
+    padding: 35% 0;
+
+    border-radius: 0 0 20px 20px;
+
+    ion-title {
+        font-weight: 800;
+        margin-top: 40px;
+        text-align: center;
+        color: white;
+        font-size: 30px;
+        padding: 20px;
+        height: auto;
+    }
+
+    p {
+        font-weight: 800;
+        color: white;
+        font-size: 20px;
+        padding: 20px;
+    }
+
+}
+
+
+form {
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .inputs-container {
+        width: 100%;
+    }
+
+    ion-item {
+        margin-bottom: 20px;
+    }
+
+}
+
+.link-container {
+    text-align: center;
+
+    a {
+        text-decoration: none;
+        color: rgb(39, 39, 39);
+    }
+}

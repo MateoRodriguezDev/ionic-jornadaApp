@@ -1,0 +1,27 @@
+
+<ion-content [fullscreen]="true" style="background-color: white;">
+  <div class="container">
+    <!-- <ion-img src="assets/icon/firstPage.jpg" /> -->
+    <ion-title>¡Inicia tu jornada laboral!</ion-title>
+    <p>Inicia Sesión</p>
+  </div>
+
+  <form action="">
+    <div class="inputs-container">
+      <ion-item>
+        <ion-input></ion-input>
+        <ion-icon name="person-outline"></ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-input></ion-input>
+        <ion-icon name="lock-closed-outline"></ion-icon>
+      </ion-item>
+    </div>
+
+    <div class="link-container">
+      <a [routerLink]="['/register']">¿No tenes cuenta? ¡Crea una!</a>
+    </div>
+  </form>
+
+</ion-content>
