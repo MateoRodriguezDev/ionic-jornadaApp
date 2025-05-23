@@ -1,0 +1,83 @@
+.profile-card {
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e1e1e1;
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+
+    .avatar-container {
+      width: 54px;
+      height: 54px;
+
+      .avatar {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+    }
+
+    .user-info {
+      .username {
+        font-size: 16px;
+        margin: 0;
+        font-weight: 600;
+      }
+
+      .surname {
+        font-size: 14px;
+        color: gray;
+        margin: 0;
+      }
+    }
+  }
+
+  .stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    color: #333;
+  }
+
+  .card-buttons {
+    display: flex;
+    gap: 8px;
+
+    .black-button {
+      --background: black;
+      --color: white;
+      flex: 1;
+    }
+
+    .gray-button {
+      --background: #f0f0f0;
+      --color: black;
+      flex: 1;
+    }
+  }
+}
+
+
+
+.jornadasContainer {
+
+
+    .buttonsContainer {
+        margin-left: 15px;
+
+        ion-button {
+            border-radius: 80px;
+        }
+    }
+
+    .list {
+        
+    }
+}

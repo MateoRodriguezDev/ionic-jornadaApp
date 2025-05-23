@@ -1,0 +1,48 @@
+<ion-content [fullscreen]="true">
+
+    <ion-card class="profile-card">
+        <div class="card-header">
+            <div class="avatar-container">
+                <img src="assets/icon/iconProfile.png" alt="Avatar" class="avatar" />
+            </div>
+            <div class="user-info">
+                <h2 class="username">Mateo</h2>
+                <p class="surname">Rodriguez</p>
+            </div>
+        </div>
+
+        <div class="stats">
+            <span>Ingeniero Agricultor</span>
+            <span>22/05/2025</span>
+        </div>
+
+        <div class="card-buttons">
+            <ion-button expand="block" class="black-button">Cerrar Sesion</ion-button>
+            <ion-button expand="block" fill="outline" class="gray-button">Crear jornada</ion-button>
+        </div>
+    </ion-card>
+
+
+    <div class="jornadasContainer">
+        <div class="buttonsContainer">
+            <ion-button color="dark" size="small">Todas</ion-button>
+            <ion-button color="light" size="small">Pendientes</ion-button>
+            <ion-button color="light" size="small">Finalizadas</ion-button>
+
+        </div>
+
+        <ion-list class="list" lines="none">
+            <ion-item>
+                <ion-label>Jornada del 22 de Agosto de 2025</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>No Lines</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>No Lines</ion-label>
+            </ion-item>
+        </ion-list>
+    </div>
+
+
+</ion-content>

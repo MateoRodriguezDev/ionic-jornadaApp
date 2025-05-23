@@ -1,12 +1,12 @@
 
-<ion-content [fullscreen]="true" style="background-color: white;">
+<ion-content [fullscreen]="true">
   <div class="container">
     <!-- <ion-img src="assets/icon/firstPage.jpg" /> -->
-    <ion-title>¡Inicia tu jornada laboral!</ion-title>
-    <p>Inicia Sesión</p>
+    <p>¡Inicia tu jornada laboral!</p>
   </div>
 
   <form action="">
+    <p>Ingresa con tu cuenta</p>
     <div class="inputs-container">
       <ion-item>
         <ion-input></ion-input>
@@ -18,6 +18,8 @@
         <ion-icon name="lock-closed-outline"></ion-icon>
       </ion-item>
     </div>
+
+    <ion-button shape="round" color="light">Iniciar Sesion</ion-button>
 
     <div class="link-container">
       <a [routerLink]="['/register']">¿No tenes cuenta? ¡Crea una!</a>

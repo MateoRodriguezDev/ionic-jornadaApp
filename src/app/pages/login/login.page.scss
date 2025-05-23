@@ -1,58 +1,65 @@
-
-
-.container {
-
-    text-align: center;
-    background-color: peru;
-    padding: 35% 0;
-
-    border-radius: 0 0 20px 20px;
-
-    ion-title {
-        font-weight: 800;
-        margin-top: 40px;
-        text-align: center;
-        color: white;
-        font-size: 30px;
-        padding: 20px;
-        height: auto;
-    }
-
-    p {
-        font-weight: 800;
-        color: white;
-        font-size: 20px;
-        padding: 20px;
-    }
-
+ion-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
+.container {
+  text-align: center;
+
+
+  p {
+    font-weight: 800;
+    padding: 15px;
+    color: black;
+    font-size: 20px;
+  }
+}
 
 form {
-    height: 50vh;
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
+  background-size: 100% 100%;
+  background-position: 0px 0px;
+  background-image: linear-gradient(90deg, #A100FFFF 0%, #71C4FFFF 100%);
+  border-radius: 20px 20px 0 0;
 
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+//   justify-content: center;
 
-    .inputs-container {
-        width: 100%;
-    }
+  height: 100%;
 
-    ion-item {
-        margin-bottom: 20px;
-    }
+  padding: 1rem;
 
+  p {
+    font-weight: 800;
+    margin-top: 100px;
+    color: white;
+    font-size: 20px;
+  }
+
+  .inputs-container {
+    width: 100%;
+  }
+
+  ion-item {
+    margin-bottom: 20px;
+    border-radius: 20px;
+  }
+
+  ion-button {
+    margin-bottom: 20px;
+    margin-top: 0;
+    font-weight: 800;
+  }
 }
 
 .link-container {
-    text-align: center;
+  text-align: center;
 
-    a {
-        text-decoration: none;
-        color: rgb(39, 39, 39);
-    }
+  a {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+  }
 }
