@@ -17,72 +17,46 @@
         </div>
 
         <div class="card-buttons">
-            <ion-button expand="block" class="black-button">Cerrar Sesion</ion-button>
+            <ion-button (click)="logout()" expand="block" class="black-button">Cerrar Sesion</ion-button>
         </div>
     </ion-card>
 
 
     <div class="jornadasContainer">
         <div class="buttonsContainer">
-            <ion-button color="dark" size="small">Todas</ion-button>
-            <ion-button color="light" size="small">Pendientes</ion-button>
-            <ion-button color="light" size="small">Finalizadas</ion-button>
+            <ion-button color="dark" size="small" (click)="mostrarTodas()">Todas</ion-button>
+            <ion-button color="light" size="small" (click)="mostrarPendientes()">Pendientes</ion-button>
+            <ion-button color="light" size="small" (click)="mostrarFinalizadas()">Finalizadas</ion-button>
 
         </div>
 
-        <ion-list class="list" lines="none">
-            <ion-item>
+        <ion-list class="list" lines="none" *ngIf="jornadasFiltradas.length > 0; else sinJornadas">
+            <ion-item *ngFor="let jornada of jornadasFiltradas">
                 <div class="item-container">
                     <div class="info1">
-                        <img src="assets/icon/ItemListIcon2.png" alt="icon">
+                        <img src="assets/icon/ItemListIcon2.png" alt="icon" />
                         <div>
-                            <p class="building">Edificio 1</p>
-                            <p>443 2561</p>
+                            <p class="building">{{ jornada.nameLocation }}</p>
+                            <p>{{ jornada.date | date: 'dd/MM/yyyy' }}</p>
                         </div>
-
                     </div>
                     <div class="info2">
-                        <p class="date">22/06/2025</p>
-                        <p>----</p>
-                    </div>
-                </div>
-            </ion-item>
-
-            <ion-item>
-                <div class="item-container">
-                    <div class="info1">
-                        <img src="assets/icon/ItemListIcon2.png" alt="icon">
-                        <div>
-                            <p class="building">Edificio 1</p>
-                            <p>443 2561</p>
-                        </div>
-
-                    </div>
-                    <div class="info2">
-                        <p class="date">22/06/2025</p>
-                        <p>----</p>
-                    </div>
-                </div>
-            </ion-item>
-
-            <ion-item>
-                <div class="item-container">
-                    <div class="info1">
-                        <img src="assets/icon/ItemListIcon2.png" alt="icon">
-                        <div>
-                            <p class="building">Edificio 1</p>
-                            <p>443 2561</p>
-                        </div>
-
-                    </div>
-                    <div class="info2">
-                        <p class="date">22/06/2025</p>
-                        <p>----</p>
+                        <p class="date">{{ jornada.state }}</p>
+                        <p>
+                            {{ jornada.date | date: 'HH:mm' }}
+                        </p>
                     </div>
                 </div>
             </ion-item>
         </ion-list>
     </div>
 
+
+    <ng-template #sinJornadas>
+        <div class="empty-container">
+            <p class="empty-message">Sin Jornadas en esta sección</p>
+            <img src="assets/icon/emptyIcon.png" alt="emptyIcon">
+        </div>
+    </ng-template>
 
 </ion-content>

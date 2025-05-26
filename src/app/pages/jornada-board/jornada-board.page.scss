@@ -79,6 +79,8 @@
 
   .list {
     margin-top: 15px;
+    display: flex;
+    flex-direction: column;
   }
 }
 
@@ -113,4 +115,24 @@
     font-weight: 600;
   }
 
+}
+
+
+
+.empty-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .empty-message {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 0;
+  }
+
+  img {
+    width: 150px;
+    height: 150px;
+  }
 }

@@ -1,29 +1,36 @@
 
 <ion-content [fullscreen]="true">
   <div class="container">
-    <!-- <ion-img src="assets/icon/firstPage.jpg" /> -->
     <p>Comenza a registrar tu jornada laboral!</p>
   </div>
 
-  <form action="">
-    <p>Crea tu cuenta</p>
+  <form (ngSubmit)="register()">
+    <p>Create una cuenta</p>
     <div class="inputs-container">
       <ion-item>
-        <ion-input></ion-input>
+        <ion-input [(ngModel)]="email" name="email" type="email" placeholder="Correo"></ion-input>
         <ion-icon name="person-outline"></ion-icon>
       </ion-item>
 
       <ion-item>
-        <ion-input></ion-input>
+        <ion-input [(ngModel)]="password" name="password" type="password" placeholder="Contraseña"></ion-input>
         <ion-icon name="lock-closed-outline"></ion-icon>
       </ion-item>
     </div>
 
-    <ion-button shape="round" color="light">Registrarse</ion-button>
+    <ion-button type="submit" shape="round" color="light">Registrate</ion-button>
 
     <div class="link-container">
       <a [routerLink]="['/login']">¿Ya tenes cuenta? ¡Inicia Sesion!</a>
     </div>
   </form>
+
+  <ion-toast 
+    [isOpen]="showToast" 
+    [duration]="3000" 
+    [message]="toastMessage" 
+    class="custom-toast"
+    [buttons]="toastButtons">
+  </ion-toast>
 
 </ion-content>
