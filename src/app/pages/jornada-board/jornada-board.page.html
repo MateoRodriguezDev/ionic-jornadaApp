@@ -31,19 +31,19 @@
         </div>
 
         <ion-list class="list" lines="none" *ngIf="jornadasFiltradas.length > 0; else sinJornadas">
-            <ion-item *ngFor="let jornada of jornadasFiltradas">
+            <ion-item *ngFor="let jornada of jornadasFiltradas" (click)="cambiarEstadoJornada(jornada)">
                 <div class="item-container">
                     <div class="info1">
                         <img src="assets/icon/ItemListIcon2.png" alt="icon" />
                         <div>
                             <p class="building">{{ jornada.nameLocation }}</p>
-                            <p>{{ jornada.date | date: 'dd/MM/yyyy' }}</p>
+                            <p>{{ jornada.startingDate | date: 'dd/MM/yyyy' }}</p>
                         </div>
                     </div>
                     <div class="info2">
                         <p class="date">{{ jornada.state }}</p>
                         <p>
-                            {{ jornada.date | date: 'HH:mm' }}
+                            {{ jornada.startingDate | date: 'HH:mm' }}
                         </p>
                     </div>
                 </div>

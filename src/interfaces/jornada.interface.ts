@@ -1,13 +1,17 @@
 export interface Jornada {
   id: number;
   nameLocation: string;
-  date: string;       // ISO date string
+  startingDate: string;       
+  finishingDate: string;    
+  dateStarted: string | null; 
+  dateFinished: string | null; 
   state: string;
-  imgURL: string | null;
+  firstImgURL: string | null; 
+  lastImgURL: string | null;  
   lat: number;
   long: number;
   userId: number;
-  createdAt: string;  // ISO date string
-  updatedAt: string;  // ISO date string
+  createdAt: string;
+  updatedAt: string;
   deletedAt: string | null;
 }

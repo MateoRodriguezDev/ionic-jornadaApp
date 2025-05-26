@@ -85,4 +85,16 @@ export class JornadaBoardPage implements OnInit {
     this.jornadasFiltradas = this.jornadas.filter(jornada => jornada.state === 'Finalizada')
   }
 
+
+  cambiarEstadoJornada(jornada: Jornada) {
+    this.apiService.post(`jornadas/change-jornada-state/${jornada.id}`, {lat: this.latitud, long: this.longitud}).subscribe(
+      (res: any) => {
+       console.log(res)
+      },
+      (err: any) => {
+        console.log(err.error.message)
+      }
+    );
+  }
+
 }
