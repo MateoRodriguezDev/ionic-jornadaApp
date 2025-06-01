@@ -136,3 +136,42 @@
     height: 150px;
   }
 }
+
+
+
+.project-card {
+  border-radius: 16px;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
+  padding: 12px;
+
+  .close-icon {
+    width: 35px;
+    height: 35px;
+  }
+
+  .project-title {
+    font-weight: bold;
+    font-size: 20px;
+  }
+
+  .project-subtitle {
+    font-weight: 800;
+    font-size: 20px;
+  }
+
+  .card-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 10px 0;
+
+    ion-icon{
+      width: 40px;
+      height: 40px;
+    }
+
+    .inverted-icon {
+      transform: rotate(180deg); 
+    }
+  }
+}

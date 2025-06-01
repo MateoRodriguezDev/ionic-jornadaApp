@@ -31,7 +31,7 @@
         </div>
 
         <ion-list class="list" lines="none" *ngIf="jornadasFiltradas.length > 0; else sinJornadas">
-            <ion-item *ngFor="let jornada of jornadasFiltradas" (click)="cambiarEstadoJornada(jornada)">
+            <ion-item *ngFor="let jornada of jornadasFiltradas" (click)="abrirModal(jornada)">
                 <div class="item-container">
                     <div class="info1">
                         <img src="assets/icon/ItemListIcon2.png" alt="icon" />
@@ -58,5 +58,61 @@
             <img src="assets/icon/emptyIcon.png" alt="emptyIcon">
         </div>
     </ng-template>
+
+<ion-modal [isOpen]="isModalOpen">
+  <ng-template>
+    <ion-content class="ion-padding custom-modal-content">
+      <ion-card class="project-card">
+        <ion-item lines="none">
+          <ion-avatar slot="start">
+            <img src="assets/icon/ItemListIcon2.png" />
+          </ion-avatar>
+          <ion-label>
+            <h2 class="project-title">{{ selectedJornada?.nameLocation || 'Jornada Location' }}</h2>
+            <p class="project-subtitle">{{ selectedJornada?.startingDate | date: 'dd/MM/yyyy' }}</p>
+        </ion-label>
+        <ion-icon class="close-icon" (click)="setOpen(false)" name="close-outline"></ion-icon>
+        </ion-item> 
+
+        <h2>Horarios de la jornada</h2>
+        <div class="card-section">
+          <ion-icon name="enter-outline" color="success"></ion-icon>
+          <h3>{{ selectedJornada?.startingDate | date: 'HH:mm' }} </h3>
+        </div>
+
+        <div class="card-section">
+          <ion-icon class="inverted-icon" name="enter-outline" color="warning"></ion-icon>
+          <h3>{{ selectedJornada?.finishingDate | date: 'HH:mm' }}</h3>
+        </div>
+
+        <h2>Tus horarios de entrada y salida</h2>
+        <div class="card-section">
+          <ion-icon name="enter-outline" color="success"></ion-icon>
+          <h3>{{ selectedJornada?.dateStarted | date: 'HH:mm' }} </h3>
+        </div>
+
+        <div class="card-section">
+          <ion-icon class="inverted-icon" name="enter-outline" color="warning"></ion-icon>
+          <h3>{{ selectedJornada?.dateFinished | date: 'HH:mm'}}</h3>
+        </div>
+
+
+        <ion-button *ngIf="selectedJornada?.state !== 'Finalizada'" (click)="cambiarEstadoJornada(selectedJornada)">{{ selectedJornada?.state === 'Pendiente' ? 'Comenzar Turno' : selectedJornada?.state === 'En Proceso' ? 'Terminar Jornada' : 'Jornada Finalizada'}}</ion-button>
+
+
+
+      </ion-card>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+
+  <ion-toast 
+    [isOpen]="showToast" 
+    [duration]="3000" 
+    [message]="toastMessage" 
+    class="custom-toast"
+    [buttons]="toastButtons">
+</ion-toast>
 
 </ion-content>
