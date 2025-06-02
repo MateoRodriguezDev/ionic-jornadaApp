@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonImg, IonItem, IonInput, IonIcon, IonButton, IonToast } from '@ionic/angular/standalone';
+import { IonContent, IonItem, IonInput, IonIcon, IonButton, IonToast } from '@ionic/angular/standalone';
 import { Router, RouterModule } from '@angular/router';
 import { ApiService } from 'src/services/api.service';
 
@@ -10,7 +10,7 @@ import { ApiService } from 'src/services/api.service';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [RouterModule, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonImg, IonIcon, IonItem, IonInput, IonButton, IonToast]
+  imports: [RouterModule, IonContent, CommonModule, FormsModule, IonIcon, IonItem, IonInput, IonButton, IonToast]
 })
 export class LoginPage implements OnInit {
   constructor(

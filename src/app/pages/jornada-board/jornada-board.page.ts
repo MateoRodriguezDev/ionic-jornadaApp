@@ -1,14 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonImg, IonCard, IonIcon, IonButton, IonButtons, IonItem, IonLabel, IonList, IonModal, IonAvatar, IonProgressBar, IonToast } from '@ionic/angular/standalone';
+import { IonContent, IonCard, IonIcon, IonButton, IonItem, IonLabel, IonList, IonModal, IonAvatar, IonToast } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { Geolocation } from '@capacitor/geolocation';
 import { ApiService } from 'src/services/api.service';
 import { Jornada } from 'src/interfaces/jornada.interface';
-import { OverlayEventDetail } from '@ionic/core/components';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
-import { FirebaseStorageService } from 'src/services/firebase-storage.service';
 import { environment } from 'src/environments/environment';
 import { User } from 'src/interfaces/user.interface';
 
@@ -18,7 +16,7 @@ import { User } from 'src/interfaces/user.interface';
   templateUrl: './jornada-board.page.html',
   styleUrls: ['./jornada-board.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonImg, IonCard, IonIcon, IonButton, IonButtons, IonItem, IonLabel, IonList, IonModal, IonAvatar, IonProgressBar, IonToast]
+  imports: [IonContent, CommonModule, FormsModule, IonCard, IonIcon, IonButton, IonItem, IonLabel, IonList, IonModal, IonAvatar, IonToast]
 })
 export class JornadaBoardPage implements OnInit {
 
