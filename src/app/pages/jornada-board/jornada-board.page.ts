@@ -8,6 +8,9 @@ import { ApiService } from 'src/services/api.service';
 import { Jornada } from 'src/interfaces/jornada.interface';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { FirebaseStorageService } from 'src/services/firebase-storage.service';
+import { environment } from 'src/environments/environment';
+import { User } from 'src/interfaces/user.interface';
 
 
 @Component({
@@ -22,13 +25,16 @@ export class JornadaBoardPage implements OnInit {
   latitud: number = 0;
   longitud: number = 0;
   token: string | null = null;
+  firstImgUrl: string | null = null;
+  lastImgUrl: string | null = null;
+  user: User | null = null
   jornadas: Jornada[] = []
   jornadasFiltradas: Jornada[] = []
   selectedJornada: Jornada | null = null
-  
+
   toastMessage: string = '';
   showToast: boolean = false;
-    public toastButtons = [
+  public toastButtons = [
     {
       text: 'Dismiss',
       role: 'cancel',
@@ -37,7 +43,7 @@ export class JornadaBoardPage implements OnInit {
 
   constructor(
     private router: Router,
-    private apiService: ApiService
+    private apiService: ApiService,
   ) { }
 
   ngOnInit() {
@@ -56,8 +62,6 @@ export class JornadaBoardPage implements OnInit {
     const coordinates = await Geolocation.getCurrentPosition();
     this.latitud = coordinates.coords.latitude
     this.longitud = coordinates.coords.longitude
-    console.log('Latitud:', this.latitud);
-    console.log('Longitud:', this.longitud);
   }
 
   //Te cierra la sesión y te lleva al login
@@ -67,19 +71,22 @@ export class JornadaBoardPage implements OnInit {
   }
 
 
-  //Trae las jornadas al entrar a la vista
+  //Trae las jornadas y el user al entrar a la vista
   getJornadas() {
     this.apiService.get('jornadas/mis-jornadas',).subscribe(
       (res: any) => {
-       if(typeof res === 'object'){
-        res.map((jornada: Jornada) => {
-          this.jornadas.push(jornada)
-          this.jornadasFiltradas.push(jornada)
-        });
-       }
+        if (typeof res === 'object') {
+          res.jornadas.map((jornada: Jornada) => {
+            this.jornadas.push(jornada)
+            this.jornadasFiltradas.push(jornada)
+          });
+
+          this.user = res.user
+          
+        }
       },
       (err: any) => {
-         if (typeof err.error.message === 'object') {
+        if (typeof err.error.message === 'object') {
           this.toastMessage = err.error.message[0]
         } else if (typeof err.error.message === 'string') {
           this.toastMessage = err.error.message
@@ -93,9 +100,11 @@ export class JornadaBoardPage implements OnInit {
     );
   }
 
+  
+
 
   //Logica para filtro de jornadas
-  mostrarTodas(){
+  mostrarTodas() {
     this.jornadasFiltradas = this.jornadas
   }
 
@@ -113,67 +122,90 @@ export class JornadaBoardPage implements OnInit {
 
 
   //Cambia el estado de la jornada al interactuar
-async cambiarEstadoJornada(jornada: Jornada | null) {
-  if (jornada) {
-    try {
-      // Se toma la foto
-      const image = await Camera.getPhoto({
-        quality: 90,
-        allowEditing: false,
-        resultType: CameraResultType.Base64, 
-        source: CameraSource.Camera
-      });
+  async cambiarEstadoJornada(jornada: Jornada | null) {
+    if (jornada) {
+      try {
+        // Se toma la foto
+        const image = await Camera.getPhoto({
+          quality: 90,
+          allowEditing: false,
+          resultType: CameraResultType.Base64,
+          source: CameraSource.Camera
+        });
 
-      // Convertir base64 a blob
-      const byteString = atob(image.base64String!);
-      const ab = new ArrayBuffer(byteString.length);
-      const ia = new Uint8Array(ab);
-      for (let i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
-      }
-      const blob = new Blob([ab], { type: 'image/jpeg' }); 
-
-      // Se crea el payload
-      const formData = new FormData();
-      formData.append('image', blob, 'foto.jpg');
-      formData.append('lat', this.latitud.toString());
-      formData.append('long', this.longitud.toString());
-
-      
-      this.apiService.postFormData(`jornadas/change-jornada-state/${jornada.id}`, formData).subscribe(
-        (res: any) => {
-          console.log(res);
-        },
-        (err: any) => {
-          this.toastMessage = typeof err.error.message === 'object' ? err.error.message[0] : err.error.message;
-          console.log(this.toastMessage);
-          this.showToast = true;
-          setTimeout(() => this.showToast = false, 3000);
+        // Convertir base64 a blob
+        const byteString = atob(image.base64String!);
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+          ia[i] = byteString.charCodeAt(i);
         }
-      );
+        const blob = new Blob([ab], { type: 'image/jpeg' });
 
-    } catch (error) {
-      console.error('Error al tomar la foto', error);
-      this.toastMessage = 'No se pudo capturar la imagen.';
-      this.showToast = true;
-      setTimeout(() => this.showToast = false, 3000);
+        // Se crea el payload
+        const formData = new FormData();
+        formData.append('image', blob, 'foto.jpg');
+        formData.append('lat', this.latitud.toString());
+        formData.append('long', this.longitud.toString());
+
+
+        this.apiService.postFormData(`jornadas/change-jornada-state/${jornada.id}`, formData).subscribe(
+          (res: any) => {
+            console.log(res);
+          },
+          (err: any) => {
+            this.toastMessage = typeof err.error.message === 'object' ? err.error.message[0] : err.error.message;
+            console.log(this.toastMessage);
+            this.showToast = true;
+            setTimeout(() => this.showToast = false, 3000);
+          }
+        );
+
+
+        //Recargo la pagina para ver los cambios
+        window.location.reload();
+
+
+
+      } catch (error) {
+        console.error('Error al tomar la foto', error);
+        this.toastMessage = 'No se pudo capturar la imagen.';
+        this.showToast = true;
+        setTimeout(() => this.showToast = false, 3000);
+      }
     }
   }
-}
 
 
 
 
   abrirModal(jornada: Jornada) {
     this.selectedJornada = jornada
+
+    //Traigo las imagenes tomadas de la jornada
+    this.cargarImagen()
     this.setOpen(true)
   }
 
   //Logica del modal de la jornada
   isModalOpen = false;
-
   setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
+  }
+
+
+  //Logica para traer las imagenes desde firebase
+  async cargarImagen() {
+
+    this.firstImgUrl = null
+    this.lastImgUrl = null
+
+    if (this.selectedJornada?.firstImgURL) {
+      this.firstImgUrl = `${environment.firebaseBucketUrl}${this.selectedJornada.firstImgURL}`
+    }
+    if (this.selectedJornada?.lastImgURL) {
+      this.lastImgUrl = `${environment.firebaseBucketUrl}${this.selectedJornada.lastImgURL}`
+    }
   }
 
 }

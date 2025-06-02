@@ -9,6 +9,10 @@ import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 import { authInterceptor } from './interceptors/auth.interceptor';
 
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideStorage, getStorage } from '@angular/fire/storage';
+import { environment } from './environments/environment';
+
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
@@ -19,6 +23,8 @@ bootstrapApplication(AppComponent, {
     // Usar el interceptor como función
      provideHttpClient(
       withInterceptors([authInterceptor])
-    )
+    ),
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideStorage(() => getStorage())
   ],
 });

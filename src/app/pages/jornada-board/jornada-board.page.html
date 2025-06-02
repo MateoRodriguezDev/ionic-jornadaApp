@@ -6,14 +6,14 @@
                 <img src="assets/icon/iconProfile.png" alt="Avatar" class="avatar" />
             </div>
             <div class="user-info">
-                <h2 class="username">Mateo</h2>
-                <p class="surname">Rodriguez</p>
+                <h2 class="username">{{user?.firstName}}</h2>
+                <p class="surname">{{user?.lastName}}</p>
             </div>
         </div>
 
         <div class="stats">
-            <span>Ingeniero Agricultor</span>
-            <span>22/05/2025</span>
+            <span>{{user?.degree}}</span>
+            <span>{{user?.email}}</span>
         </div>
 
         <div class="card-buttons">
@@ -94,6 +94,15 @@
         <div class="card-section">
           <ion-icon class="inverted-icon" name="enter-outline" color="warning"></ion-icon>
           <h3>{{ selectedJornada?.dateFinished | date: 'HH:mm'}}</h3>
+        </div>
+
+        <h2 *ngIf="firstImgUrl !== null || lastImgUrl !== null">Tus Imagenes de entrada y salida</h2>
+        <div class="card-section" *ngIf="firstImgUrl">
+          <img [src]="firstImgUrl" alt="firstImg">
+        </div>
+
+        <div class="card-section" *ngIf="lastImgUrl">
+          <img [src]="lastImgUrl" alt="lastImg">
         </div>
 
 
