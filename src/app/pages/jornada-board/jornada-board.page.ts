@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 import { User } from 'src/interfaces/user.interface';
 
 
+
 @Component({
   selector: 'app-jornada-board',
   templateUrl: './jornada-board.page.html',
@@ -51,9 +52,22 @@ export class JornadaBoardPage implements OnInit {
       this.router.navigate(['/login'])
     }
 
+    this.requestPermissions()
     this.obtenerUbicacion()
     this.getJornadas()
   }
+
+  //Solicitud de permisos
+  async requestPermissions() {
+  // Permisos para Geolocation
+  const geoPerms = await Geolocation.requestPermissions();
+  console.log('Permisos de ubicación:', geoPerms);
+
+  // Permisos para Camera
+  const camPerms = await Camera.requestPermissions();
+  console.log('Permisos de cámara:', camPerms);
+
+}
 
   //Agarra tu ubicación actual
   async obtenerUbicacion() {
