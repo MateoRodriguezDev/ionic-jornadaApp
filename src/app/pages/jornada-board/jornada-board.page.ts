@@ -9,6 +9,8 @@ import { Jornada } from 'src/interfaces/jornada.interface';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { environment } from 'src/environments/environment';
 import { User } from 'src/interfaces/user.interface';
+import { StorageService } from 'src/services/firebase-storage.service';
+import { getApps } from 'firebase/app';
 
 
 
@@ -43,6 +45,7 @@ export class JornadaBoardPage implements OnInit {
   constructor(
     private router: Router,
     private apiService: ApiService,
+    private storageService: StorageService
   ) { }
 
   ngOnInit() {
@@ -55,6 +58,8 @@ export class JornadaBoardPage implements OnInit {
     this.requestPermissions()
     this.obtenerUbicacion()
     this.getJornadas()
+
+
   }
 
   //Solicitud de permisos
@@ -74,8 +79,6 @@ export class JornadaBoardPage implements OnInit {
     const coordinates = await Geolocation.getCurrentPosition();
     this.latitud = coordinates.coords.latitude
     this.longitud = coordinates.coords.longitude
-    console.log(this.latitud)
-    console.log(this.longitud)
   }
 
   //Te cierra la sesión y te lleva al login
@@ -90,7 +93,6 @@ export class JornadaBoardPage implements OnInit {
     this.apiService.get('jornadas/mis-jornadas',).subscribe(
       (res: any) => {
         if (typeof res === 'object') {
-          console.log(res)
           res.jornadas.map((jornada: Jornada) => {
             this.jornadas.push(jornada)
             this.jornadasFiltradas.push(jornada)
@@ -218,10 +220,17 @@ export class JornadaBoardPage implements OnInit {
     this.lastImgUrl = null
 
     if (this.selectedJornada?.firstImgURL) {
-      this.firstImgUrl = `${environment.firebaseBucketUrl}${this.selectedJornada.firstImgURL}`
+      // this.firstImgUrl = `${environment.firebaseBucketUrl}${this.selectedJornada.firstImgURL}`
+      
+      this.firstImgUrl = await this.storageService.getImage(this.selectedJornada.firstImgURL);
+      console.log(this.firstImgUrl)
+      console.log(`${environment.firebaseBucketUrl}${this.selectedJornada.firstImgURL}`)
     }
     if (this.selectedJornada?.lastImgURL) {
-      this.lastImgUrl = `${environment.firebaseBucketUrl}${this.selectedJornada.lastImgURL}`
+      // this.lastImgUrl = `${environment.firebaseBucketUrl}${this.selectedJornada.lastImgURL}`
+      
+      this.lastImgUrl = await this.storageService.getImage(this.selectedJornada.lastImgURL);
+      console.log(this.lastImgUrl)
     }
   }
 

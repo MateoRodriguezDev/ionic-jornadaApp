@@ -1,14 +1,23 @@
 import { Injectable } from '@angular/core';
-import { Storage, ref, getDownloadURL } from '@angular/fire/storage';
+import { getStorage, ref, getDownloadURL } from '@angular/fire/storage';
+import { getApps, initializeApp } from 'firebase/app';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
-export class FirebaseStorageService {
-  constructor(private storage: Storage) {}
+export class StorageService {
+   constructor() {
+    if (!getApps().length) {
+      initializeApp(environment.firebase);
+      console.log('Firebase inicializado manualmente en StorageService');
+    }
+  }
 
-
-  //Me trae la url de la imagen que necesito
-  async getDownloadUrl(filePath: string): Promise<string> {
-    const fileRef = ref(this.storage, filePath);
-    return await getDownloadURL(fileRef);
+  async getImage(imagePath: string): Promise<string> {
+    const storage = getStorage();
+    const imageRef = ref(storage, imagePath);
+    const url = await getDownloadURL(imageRef);
+    return url;
   }
 }
+
+
