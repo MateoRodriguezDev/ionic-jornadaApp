@@ -74,6 +74,8 @@ export class JornadaBoardPage implements OnInit {
     const coordinates = await Geolocation.getCurrentPosition();
     this.latitud = coordinates.coords.latitude
     this.longitud = coordinates.coords.longitude
+    console.log(this.latitud)
+    console.log(this.longitud)
   }
 
   //Te cierra la sesión y te lleva al login
@@ -88,6 +90,7 @@ export class JornadaBoardPage implements OnInit {
     this.apiService.get('jornadas/mis-jornadas',).subscribe(
       (res: any) => {
         if (typeof res === 'object') {
+          console.log(res)
           res.jornadas.map((jornada: Jornada) => {
             this.jornadas.push(jornada)
             this.jornadasFiltradas.push(jornada)
@@ -100,8 +103,10 @@ export class JornadaBoardPage implements OnInit {
       (err: any) => {
         if (typeof err.error.message === 'object') {
           this.toastMessage = err.error.message[0]
+          console.log(err.error.message[0])
         } else if (typeof err.error.message === 'string') {
           this.toastMessage = err.error.message
+          console.log(err.error.message)
         }
 
         console.log(this.toastMessage)
@@ -175,8 +180,8 @@ export class JornadaBoardPage implements OnInit {
 
 
         //Recargo la pagina para ver los cambios
-        window.location.reload();
-
+        
+        setTimeout(() => window.location.reload(), 1500);
 
 
       } catch (error) {

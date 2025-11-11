@@ -32,7 +32,7 @@ export class ApiService {
   }
 
   postFormData(url: string, formData: FormData): Observable<any> {
-  return this.http.post(this.baseUrl + '/' + url, formData); // Angular manejará los headers
+  return this.http.post(this.baseUrl + '/' + url, formData); 
 }
 
   put<T>(endpoint: string, data: any): Observable<T> {

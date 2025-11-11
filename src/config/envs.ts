@@ -1,3 +1,3 @@
 export const envs = {
-  apiUrl: 'localhost:3000' 
+  apiUrl: 'http://localhost:3001' 
 };
